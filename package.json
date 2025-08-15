@@ -1,9 +1,9 @@
 {
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "passport-local": "^1.0.0"
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.4.17"
+    "passport-local": "^1.0.0",
+    "tailwindcss": "^4.1.12"
   }
 }
