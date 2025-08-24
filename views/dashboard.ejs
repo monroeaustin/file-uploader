@@ -94,7 +94,7 @@
 
   </div>
 
-  <!-- ===== Upload Modal (unchanged) ===== -->
+  <!-- ===== Upload Modal ===== -->
   <div id="uploadModal" class="hidden fixed inset-0 z-50">
     <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
     <div class="absolute left-1/2 top-1/2 w-[700px] max-w-[92vw] -translate-x-1/2 -translate-y-1/2
@@ -104,18 +104,34 @@
       <div class="mt-6 flex items-center justify-end gap-3">
         <button id="hideUpload" class="rounded-xl border border-slate-200 px-4 py-2 text-sm hover:bg-slate-50">Hide</button>
         <button id="addMore" class="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500">Add more files</button>
+        <input type="file" class="hidden" id="filePicker">
       </div>
     </div>
   </div>
 
-  <!-- ===== MVP JS (menus + donut + uploads) ===== -->
+  <!-- =====  JS (menus + donut + uploads) ===== -->
   <script>
     // profile dropdown
     const pBtn = document.getElementById('profileBtn');
     const pMenu = document.getElementById('profileMenu');
     pBtn?.addEventListener('click', () => pMenu.classList.toggle('hidden'));
-    document.addEventListener('click', (e) => { if (pBtn && pMenu && !pBtn.contains(e.target) && !pMenu.contains(e.target)) pMenu.classList.add('hidden'); });
+      document.addEventListener('click', (e) => {
+  if (
+    pBtn && pMenu && fileBtn && fMenu &&
+    !pBtn.contains(e.target) &&
+    !pMenu.contains(e.target) &&
+    !fileBtn.contains(e.target) &&
+    !fMenu.contains(e.target)
+  ) {
+    pMenu.classList.add('hidden');
+    fMenu.classList.add('hidden');
+  }
+});
 
+// Add New
+  const fileBtn = document.getElementById('addnewBtn');
+  const fMenu = document.getElementById('fileMenu');
+ fileBtn?.addEventListener('click', () => fMenu.classList.toggle('hidden'));
     // row action menus
     document.querySelectorAll('.action-btn').forEach(btn => {
       const id = btn.getAttribute('data-menu');
@@ -143,6 +159,71 @@
       layout.classList.toggle('grid-cols-[100px_1fr_360px]');
       layout.classList.toggle('grid-cols-[280px_1fr_360px]');
       sidebar.classList.toggle('collapsed'); // labels hide via group-[.collapsed]:hidden
+    });
+
+    // ===== uploads =====
+    const openBtn   = document.getElementById('openUpload');
+    const modal     = document.getElementById('uploadModal');
+    const fileInput = document.getElementById('filePicker');
+    const list      = document.getElementById('uploadList');
+    const addMore   = document.getElementById('addMore');
+    const hideBtn   = document.getElementById('hideUpload');
+
+    const show = () => modal.classList.remove('hidden');
+    const hide = () => modal.classList.add('hidden');
+    const fmtMB = b => (b/1024/1024).toFixed(0) + 'MB';
+
+    openBtn.addEventListener('click', () => { show(); fileInput.click(); });
+    addMore.addEventListener('click', () => fileInput.click());
+    hideBtn.addEventListener('click', hide);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
+
+    function makeRow(file) {
+      const li = document.createElement('li');
+      li.className = 'rounded-2xl border border-slate-200 p-3';
+      li.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="h-3 w-3 rounded-full bg-indigo-500"></span>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between">
+              <p class="truncate text-sm font-medium">${file.name}</p>
+              <p class="text-xs text-slate-500">${fmtMB(file.size)}</p>
+            </div>
+            <div class="mt-2 h-1.5 w-full rounded-full bg-slate-200">
+              <div class="h-1.5 w-0 rounded-full bg-indigo-500 transition-all" data-bar></div>
+            </div>
+          </div>
+          <span class="ml-2 hidden text-green-600" data-done>✔</span>
+          <span class="ml-2 hidden text-rose-500"  data-fail>✕</span>
+        </div>`;
+      return li;
+    }
+
+    // simulate upload progress for MVP
+    function fakeUpload(file, row) {
+      const bar  = row.querySelector('[data-bar]');
+      const ok   = row.querySelector('[data-done]');
+      const bad  = row.querySelector('[data-fail]');
+      let p = 0;
+      const t = setInterval(() => {
+        p = Math.min(100, p + 8 + Math.random() * 20);
+        bar.style.width = p + '%';
+        if (p >= 100) {
+          clearInterval(t);
+          if (file.size < 10 * 1024 * 1024) ok.classList.remove('hidden'); // success if <10MB
+          else bad.classList.remove('hidden');                              // fail if >=10MB
+        }
+      }, 250);
+    }
+
+    fileInput.addEventListener('change', () => {
+      if (!fileInput.files.length) return;
+      [...fileInput.files].forEach(f => {
+        const row = makeRow(f);
+        list.appendChild(row);
+        fakeUpload(f, row);
+      });
+      fileInput.value = '';
     });
   </script>
 </body>
