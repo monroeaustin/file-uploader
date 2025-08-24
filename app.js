@@ -13,6 +13,9 @@ app.get('/login', (req, res) => {
 app.get('/signup', (req, res) => {
   res.render('./signup')
 })
+app.get('/:profileid/dashboard', (req, res) => {
+  res.render('./dashboard')
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -1,40 +1,43 @@
-<aside class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
-      <a href="/" class="flex items-center gap-3 px-1 py-2">
-        <span class="grid h-10 w-10 place-items-center rounded-md bg-indigo-600 text-white font-semibold">A</span>
-        <span class="text-lg font-semibold">Alpha Drive</span>
-      </a>
+<aside id="sidebar" class="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
+  <a href="/" class="flex items-center gap-3 px-1 py-2">
+    <span class="grid h-10 w-10 place-items-center rounded-md bg-indigo-600 text-white font-semibold">A</span>
+    <span class="text-lg font-semibold sidebar-label group-[.collapsed]:hidden">Alpha Drive</span>
+  </a>
 
-      <nav class="mt-8 space-y-2 text-base">
-        <a class="flex items-center gap-3 rounded-xl px-3 py-3 font-medium bg-indigo-600/10 text-indigo-700">
-          <span class="grid h-9 w-9 place-items-center rounded-lg bg-indigo-600 text-white">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 8v-8h8v8h-8z"/></svg>
-          </span>
-          Dashboard
-        </a>
-        <a class="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50">
-          <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100 text-slate-600">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4v7h6V4zm10 0h-6v7h6V4zM10 13H4v7h6v-7zm10 0h-6v7h6v-7z"/></svg>
-          </span>
-          Shared
-        </a>
-        <a class="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50">
-          <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100 text-slate-600">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="m12 17.3 6.2 3.7-1.6-7 4.5-4.7-7.2-.6L12 2 10.2 8.7 3 9.3l4.5 4.7-1.7 7z"/></svg>
-          </span>
-          Starred
-        </a>
-        <a class="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50">
-          <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100 text-slate-600">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-          </span>
-          Deleted
-        </a>
-      </nav>
+  <nav class="mt-8 space-y-2 text-base">
+    <a class="flex items-center gap-3 rounded-xl p-1 font-medium bg-indigo-600/10 text-indigo-700 group-[.collapsed]:justify-center group-[.collapsed]:px-2 group-[.collapsed]:gap-0">
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-indigo-600 text-white">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 8v-8h8v8h-8z"/></svg>
+      </span>
+      <span class="sidebar-label group-[.collapsed]:hidden">Dashboard</span>
+    </a>
 
-      <button class="mt-10 flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-600 hover:bg-slate-50">
-        <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H8v12h2V6zm6 0h-2v12h2V6z"/></svg>
-        </span>
-        Collapse
-      </button>
-    </aside>
+    <a class="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50 group-[.collapsed]:justify-center group-[.collapsed]:px-2 group-[.collapsed]:gap-0">
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100 text-slate-600">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4v7h6V4zm10 0h-6v7h6V4zM10 13H4v7h6v-7zm10 0h-6v7h6v-7z"/></svg>
+      </span>
+      <span class="sidebar-label group-[.collapsed]:hidden">Sharred</span>
+    </a>
+
+    <a class="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50 group-[.collapsed]:justify-center group-[.collapsed]:px-2 group-[.collapsed]:gap-0">
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100 text-slate-600">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="m12 17.3 6.2 3.7-1.6-7 4.5-4.7-7.2-.6L12 2 10.2 8.7 3 9.3l4.5 4.7-1.7 7z"/></svg>
+      </span>
+      <span class="sidebar-label group-[.collapsed]:hidden">Starred</span>
+    </a>
+
+    <a class="flex items-center gap-3 rounded-xl px-3 py-3 hover:bg-slate-50 group-[.collapsed]:justify-center group-[.collapsed]:px-2 group-[.collapsed]:gap-0">
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100 text-slate-600">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+      </span>
+      <span class="sidebar-label group-[.collapsed]:hidden">Deleted</span>
+    </a>
+  </nav>
+
+  <button class="mt-10 flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-600 hover:bg-slate-50 btn1 group-[.collapsed]:justify-center group-[.collapsed]:px-2 group-[.collapsed]:gap-0" type="button">
+    <span class="grid h-9 w-9 place-items-center rounded-lg bg-slate-100">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6H8v12h2V6zm6 0h-2v12h2V6z"/></svg>
+    </span>
+    <span class="sidebar-label group-[.collapsed]:hidden">Collapse</span>
+  </button>
+</aside>
