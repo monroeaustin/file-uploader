@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Alpha Drive – MVP</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<%
+  // --- demo data (replace with real data from your route) ---
+  const user    = locals.user    || { name:"Robert Fox", email:"robert@gmail.com", avatar:"https://i.pravatar.cc/64?img=3" };
+  const storage = locals.storage || { usedPct:25, usedGB:769, totalTB:1 };
+  const categories = locals.categories || [
+    { name:"Images",    count:437, iconBg:"bg-indigo-50",  iconColor:"text-indigo-600" },
+    { name:"Documents", count:212, iconBg:"bg-sky-50",     iconColor:"text-sky-600" },
+    { name:"Audio",     count: 98, iconBg:"bg-amber-50",   iconColor:"text-amber-600" },
+    { name:"Videos",    count:560, iconBg:"bg-emerald-50", iconColor:"text-emerald-600" },
+  ];
+  const files = locals.files || [
+    { name:"My Report.docx",   type:"DOCX File", size:"7 MB",    dot:"bg-sky-500" },
+    { name:"Backsound.mp3",    type:"MP3 File",  size:"5.6 MB",  dot:"bg-violet-500", active:true },
+    { name:"Artboard-1.png",   type:"PNG File",  size:"2.3 MB",  dot:"bg-emerald-500" },
+    { name:"Final Present.mp4",type:"MP4 File",  size:"154 MB",  dot:"bg-rose-500" },
+    { name:"Work",             type:"Folder",    size:"8.9 GB",  dot:"bg-amber-500" },
+  ];
+%>
+
+<body class="min-h-screen w-screen bg-slate-100 text-slate-900">
+
+  <!-- FULL-SCREEN APP -->
+  <div class="grid min-h-screen grid-cols-[280px_1fr_360px] gap-8 p-6">
+
+    <!-- SIDEBAR -->
+        <%- include ('./partials/sidebar') %>
+        <button id="openUpload" class="grid h-11 place-items-center rounded-xl bg-indigo-600 px-5 text-white font-medium">
+          Upload
+        </button>
+        <input id="filePicker" type="file" multiple class="hidden"/>
+
+    <!-- MAIN CONTENT -->
+    <section class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+      <!-- Search + Quick actions (Upload integrated) -->
+          <%- include ('./partials/searchbar') %>
+
+
+      <!-- Category -->
+      <h2 class="mt-8 text-sm font-semibold text-slate-600">Category</h2>
+      <div class="mt-3 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <% categories.forEach(c => { %>
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="flex items-center gap-3">
+            <span class="grid h-12 w-12 place-items-center rounded-xl <%= c.iconBg %> <%= c.iconColor %>">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 4h16v16H4z" opacity=".15"></path>
+                <path d="M4 4h10l6 6v10H4z"/>
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-semibold"><%= c.name %></p>
+              <p class="text-xs text-slate-500"><%= c.count %> files</p>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <!-- Recent files -->
+      <h2 class="mt-10 text-sm font-semibold text-slate-600">Recent</h2>
+      <ul class="mt-3 divide-y divide-slate-100">
+        <% files.forEach((f, i) => { %>
+        <li class="relative">
+          <div class="flex items-center gap-4 rounded-xl px-3 py-3 <%= f.active ? 'bg-violet-50' : '' %>">
+            <span class="h-3 w-3 rounded-full <%= f.dot %>"></span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-medium"><%= f.name %></p>
+              <p class="truncate text-xs text-slate-500"><%= f.type %></p>
+            </div>
+            <span class="text-xs text-slate-500"><%= f.size %></span>
+
+            <!-- row actions -->
+            <button class="action-btn grid h-8 w-8 place-items-center rounded-md hover:bg-slate-50" data-menu="menu-<%= i %>">
+              <svg class="h-4 w-4 text-slate-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8a2 2 0 110-4 2 2 0 010 4zm0 6a2 2 0 110-4 2 2 0 010 4zm0 6a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            </button>
+
+            <div id="menu-<%= i %>" class="hidden absolute right-2 top-12 z-10 w-44 rounded-xl border border-slate-200 bg-white p-2 text-sm shadow-lg">
+              <button class="w-full rounded-md px-3 py-2 text-left hover:bg-slate-50">Share</button>
+              <button class="w-full rounded-md px-3 py-2 text-left hover:bg-slate-50">Get link</button>
+              <button class="w-full rounded-md px-3 py-2 text-left hover:bg-slate-50">Download</button>
+              <button class="w-full rounded-md px-3 py-2 text-left hover:bg-slate-50">Rename</button>
+              <button class="w-full rounded-md px-3 py-2 text-left hover:bg-slate-50">Delete</button>
+            </div>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+
+    <!-- RIGHT PANEL -->
+          <%- include ('./partials/rightpanel') %>
+
+  </div>
+
+  <!-- ===== Upload Modal ===== -->
+  <div id="uploadModal" class="hidden fixed inset-0 z-50">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+    <div class="absolute left-1/2 top-1/2 w-[700px] max-w-[92vw] -translate-x-1/2 -translate-y-1/2
+                rounded-3xl bg-white p-6 shadow-2xl ring-1 ring-black/5">
+      <h3 class="text-base font-semibold">Upload files</h3>
+      <ul id="uploadList" class="mt-4 space-y-3"></ul>
+      <div class="mt-6 flex items-center justify-end gap-3">
+        <button id="hideUpload" class="rounded-xl border border-slate-200 px-4 py-2 text-sm hover:bg-slate-50">Hide</button>
+        <button id="addMore" class="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500">Add more files</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MVP JS (menus + donut + uploads) ===== -->
+  <script>
+    // profile dropdown
+    const pBtn = document.getElementById('profileBtn');
+    const pMenu = document.getElementById('profileMenu');
+    pBtn?.addEventListener('click', () => pMenu.classList.toggle('hidden'));
+    document.addEventListener('click', (e) => { if (!pBtn.contains(e.target) && !pMenu.contains(e.target)) pMenu.classList.add('hidden'); });
+
+    // row action menus
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      const id = btn.getAttribute('data-menu');
+      const menu = document.getElementById(id);
+      btn.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('hidden'); });
+      document.addEventListener('click', () => menu.classList.add('hidden'));
+    });
+
+    // storage donut
+    document.querySelectorAll('svg.donut').forEach(svg => {
+      const pct = Number(svg.dataset.pct || 0);
+      const ring = svg.querySelectorAll('circle')[1];
+      const r = Number(ring.getAttribute('r'));
+      const C = 2 * Math.PI * r;
+      ring.setAttribute('stroke-dasharray', C.toFixed(0));
+      ring.setAttribute('stroke-dashoffset', (C - (pct/100)*C).toFixed(0));
+    });
+
+    // ===== uploads =====
+    const openBtn   = document.getElementById('openUpload');
+    const modal     = document.getElementById('uploadModal');
+    const fileInput = document.getElementById('filePicker');
+    const list      = document.getElementById('uploadList');
+    const addMore   = document.getElementById('addMore');
+    const hideBtn   = document.getElementById('hideUpload');
+
+    const show = () => modal.classList.remove('hidden');
+    const hide = () => modal.classList.add('hidden');
+    const fmtMB = b => (b/1024/1024).toFixed(0) + 'MB';
+
+    openBtn.addEventListener('click', () => { show(); fileInput.click(); });
+    addMore.addEventListener('click', () => fileInput.click());
+    hideBtn.addEventListener('click', hide);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
+
+    function makeRow(file) {
+      const li = document.createElement('li');
+      li.className = 'rounded-2xl border border-slate-200 p-3';
+      li.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="h-3 w-3 rounded-full bg-indigo-500"></span>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between">
+              <p class="truncate text-sm font-medium">${file.name}</p>
+              <p class="text-xs text-slate-500">${fmtMB(file.size)}</p>
+            </div>
+            <div class="mt-2 h-1.5 w-full rounded-full bg-slate-200">
+              <div class="h-1.5 w-0 rounded-full bg-indigo-500 transition-all" data-bar></div>
+            </div>
+          </div>
+          <span class="ml-2 hidden text-green-600" data-done>✔</span>
+          <span class="ml-2 hidden text-rose-500"  data-fail>✕</span>
+        </div>`;
+      return li;
+    }
+
+    // simulate upload progress for MVP
+    function fakeUpload(file, row) {
+      const bar  = row.querySelector('[data-bar]');
+      const ok   = row.querySelector('[data-done]');
+      const bad  = row.querySelector('[data-fail]');
+      let p = 0;
+      const t = setInterval(() => {
+        p = Math.min(100, p + 8 + Math.random() * 20);
+        bar.style.width = p + '%';
+        if (p >= 100) {
+          clearInterval(t);
+          if (file.size < 10 * 1024 * 1024) ok.classList.remove('hidden'); // success if <10MB
+          else bad.classList.remove('hidden');                              // fail if >=10MB
+        }
+      }, 250);
+    }
+
+    fileInput.addEventListener('change', () => {
+      if (!fileInput.files.length) return;
+      [...fileInput.files].forEach(f => {
+        const row = makeRow(f);
+        list.appendChild(row);
+        fakeUpload(f, row);
+      });
+      fileInput.value = '';
+    });
+  </script>
+</body>
+</html>

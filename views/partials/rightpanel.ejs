@@ -1,0 +1,65 @@
+    <%
+  // --- demo data (replace with real data from your route) ---
+  const user    = locals.user    || { name:"Robert Fox", email:"robert@gmail.com", avatar:"https://i.pravatar.cc/64?img=3" };
+  const storage = locals.storage || { usedPct:25, usedGB:769, totalTB:1 };
+  const categories = locals.categories || [
+    { name:"Images",    count:437, iconBg:"bg-indigo-50",  iconColor:"text-indigo-600" },
+    { name:"Documents", count:212, iconBg:"bg-sky-50",     iconColor:"text-sky-600" },
+    { name:"Audio",     count: 98, iconBg:"bg-amber-50",   iconColor:"text-amber-600" },
+    { name:"Videos",    count:560, iconBg:"bg-emerald-50", iconColor:"text-emerald-600" },
+  ];
+  const files = locals.files || [
+    { name:"My Report.docx",   type:"DOCX File", size:"7 MB",    dot:"bg-sky-500" },
+    { name:"Backsound.mp3",    type:"MP3 File",  size:"5.6 MB",  dot:"bg-violet-500", active:true },
+    { name:"Artboard-1.png",   type:"PNG File",  size:"2.3 MB",  dot:"bg-emerald-500" },
+    { name:"Final Present.mp4",type:"MP4 File",  size:"154 MB",  dot:"bg-rose-500" },
+    { name:"Work",             type:"Folder",    size:"8.9 GB",  dot:"bg-amber-500" },
+  ];
+%>
+
+    
+    <aside class="space-y-8">
+      <!-- Profile -->
+      <div class="relative rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
+        <button id="profileBtn" class="flex w-full items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <img src="<%= user.avatar %>" alt="" class="h-11 w-11 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-semibold"><%= user.name %></p>
+              <p class="text-xs text-slate-500"><%= user.email %></p>
+            </div>
+          </div>
+          <svg class="h-4 w-4 text-slate-500" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+        </button>
+
+        <div id="profileMenu" class="hidden absolute right-4 top-16 z-20 w-44 rounded-xl border border-slate-200 bg-white p-2 text-sm shadow-lg">
+          <a class="block rounded-md px-3 py-2 hover:bg-slate-50">Settings</a>
+          <a class="block rounded-md px-3 py-2 hover:bg-slate-50">Upgrade</a>
+          <a class="block rounded-md px-3 py-2 hover:bg-slate-50">Logout</a>
+        </div>
+      </div>
+
+      <!-- Storage -->
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <div class="mx-auto grid place-items-center">
+          <svg class="donut" width="160" height="160" data-pct="<%= storage.usedPct %>">
+            <circle cx="80" cy="80" r="66" fill="none" stroke="#eef2ff" stroke-width="18"></circle>
+            <circle cx="80" cy="80" r="66" fill="none" stroke="#5b4bff" stroke-width="18"
+                    stroke-linecap="round" stroke-dasharray="414" stroke-dashoffset="0"></circle>
+            <text x="80" y="80" text-anchor="middle" dominant-baseline="central" fill="#0f172a" font-size="20" font-weight="700"><%= storage.usedPct %>%</text>
+          </svg>
+        </div>
+        <p class="mt-4 text-sm"><span class="font-semibold"><%= storage.usedGB %> GB</span> / <%= storage.totalTB %> TB</p>
+        <p class="text-xs text-slate-500">Available storage</p>
+      </div>
+
+      <!-- Premium -->
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <div class="grid h-12 w-12 place-items-center rounded-xl bg-indigo-600 text-white">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8V4H8v4H4v4h4v4h4v-4h4V8h-4z"/></svg>
+        </div>
+        <h3 class="mt-4 font-semibold">Go Premium</h3>
+        <p class="mt-1 text-sm text-slate-500">Upgrade space now and get a 15% discount.</p>
+        <button class="mt-4 w-full rounded-lg bg-indigo-600 py-2.5 text-white text-sm font-medium hover:bg-indigo-500">Upgrade</button>
+      </div>
+    </aside>
