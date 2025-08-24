@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reset your password – Alpha Drive</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-slate-100 text-slate-900 grid place-items-center">
+
+  <!-- Page card -->
+  <main class="w-full max-w-5xl bg-white rounded-2xl shadow ring-1 ring-black/5">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+
+      <section class="p-6 md:p-8">
+        <!-- brand row -->
+        <a href="/" class="inline-flex items-center gap-2">
+          <span class="grid h-8 w-8 place-items-center rounded-md bg-indigo-600 text-white text-sm font-semibold">A</span>
+          <span class="text-sm font-medium text-slate-700">Alpha Drive</span>
+        </a>
+
+        <div class="mt-8 flex items-end gap-6">
+          <svg viewBox="0 0 160 160" class="h-40 w-40">
+            <rect x="28" y="70" width="72" height="70" rx="10" class="fill-slate-700"></rect>
+            <rect x="40" y="46" width="48" height="26" rx="8" class="fill-indigo-500"></rect>
+            <circle cx="64" cy="34" r="11" class="fill-slate-200"></circle>
+          </svg>
+
+          <svg viewBox="0 0 120 120" class="h-28 w-28">
+            <rect x="28" y="54" width="64" height="52" rx="8" class="fill-indigo-500"></rect>
+            <path d="M40 54v-8a20 20 0 1 1 40 0v8" class="stroke-slate-700" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <circle cx="60" cy="78" r="6" class="fill-slate-700"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Right side: form -->
+      <section class="p-6 md:p-10">
+        <h1 class="text-2xl font-semibold">Reset your password</h1>
+        <p class="mt-2 text-sm text-slate-500">
+          Enter your email and we'll let you reset your password.
+        </p>
+
+        <form method="post" action="/auth/reset" class="mt-8 space-y-5">
+          <div>
+            <label for="email" class="block text-sm font-medium">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              class="mt-2 w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full rounded-lg bg-indigo-600 py-2.5 text-white text-sm font-medium hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Reset
+          </button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+</body>
+</html>
