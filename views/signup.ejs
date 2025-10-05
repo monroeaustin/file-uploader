@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +12,8 @@
   <!-- Header -->
   <header class="p-6 max-w-6xl  w-full">
     <a href="/" class="flex items-center gap-3">
-      <span class="inline-flex h-8 w-8 items-center justify-center rounded-md bg-[#6A4BFF] text-white font-semibold">A</span>
+      <span
+        class="inline-flex h-8 w-8 items-center justify-center rounded-md bg-[#6A4BFF] text-white font-semibold">A</span>
       <span class="text-lg font-semibold">Alpha Drive</span>
     </a>
   </header>
@@ -35,16 +37,23 @@
         <form action="#" class="space-y-5">
           <!-- Full name -->
           <div>
-            <label for="fullname" class="block text-sm font-medium">Full name <span class="text-red-500">*</span></label>
-            <input id="fullname" name="fullname" type="text" placeholder="Full name"
-                   class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
+            <label for="fullname" class="block text-sm font-medium">Full name <span
+                class="text-red-500">*</span></label>
+            <input id="fullname" name="fullname" type="text" placeholder="Full name" autofocus
+              class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
+          </div>
+          <!-- User Name-->
+          <div>
+            <label for="username" class="block text-sm font-medium">Username <span class="text-red-500">*</span></label>
+            <input id="username" name="username" type="text" placeholder="Username"
+              class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
           </div>
 
           <!-- Email -->
           <div>
             <label for="email" class="block text-sm font-medium">Email <span class="text-red-500">*</span></label>
             <input id="email" name="email" type="email" placeholder="Email" autocomplete="email"
-                   class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
+              class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
           </div>
 
           <!-- Password -->
@@ -52,16 +61,19 @@
             <label for="password" class="block text-sm font-medium">Password <span class="text-red-500">*</span></label>
             <div class="pw-field relative mt-2">
               <input id="password" name="password" type="password" placeholder="Password" autocomplete="new-password"
-                     class="w-full pr-11 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
-              <button type="button" class="absolute inset-y-0 right-3 my-auto inline-flex h-6 w-6 items-center justify-center text-slate-400 hover:text-slate-600"
-                      aria-label="Show password" aria-pressed="false" data-role="toggle">
+                class="w-full pr-11 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
+              <button type="button"
+                class="absolute inset-y-0 right-3 my-auto inline-flex h-6 w-6 items-center justify-center text-slate-400 hover:text-slate-600"
+                aria-label="Show password" aria-pressed="false" data-role="toggle">
                 <!-- eye -->
                 <svg viewBox="0 0 24 24" class="h-6 w-6" data-eye>
-                  <path fill="currentColor" d="M12 5c-5.5 0-9.7 4.5-10.7 6 .9 1.5 5.2 6 10.7 6s9.8-4.5 10.7-6C21.8 9.5 17.5 5 12 5Zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                  <path fill="currentColor"
+                    d="M12 5c-5.5 0-9.7 4.5-10.7 6 .9 1.5 5.2 6 10.7 6s9.8-4.5 10.7-6C21.8 9.5 17.5 5 12 5Zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
                 </svg>
                 <!-- eye-off -->
                 <svg viewBox="0 0 24 24" class="hidden h-6 w-6" data-eye-off>
-                  <path fill="currentColor" d="M2.3 1.6 1 2.9l4 4C2.8 8 1.5 9.7 1.3 10c.9 1.5 5.2 6 10.7 6 1.8 0 3.5-.4 5-.9l3 3 1.3-1.3L2.3 1.6zM12 7a3 3 0 0 1 3 3c0 .4-.1.8-.2 1.1L13 9.3V9a1 1 0 0 0-1-1h-.3L10.9 7.2c.3-.1.7-.2 1.1-.2Zm9.4 2.1C20.5 7.6 16.2 4 12 4c-1.1 0-2.1.2-3.1.5l1.6 1.6c.5-.1 1-.1 1.5-.1 5.1 0 9 4.2 9.9 5-.3.4-1.1 1.2-2.2 2.1l1.2 1.2c1.4-1.2 2.4-2.5 2.9-3.2-.2-.3-1.5-2-3.4-3.9Z"/>
+                  <path fill="currentColor"
+                    d="M2.3 1.6 1 2.9l4 4C2.8 8 1.5 9.7 1.3 10c.9 1.5 5.2 6 10.7 6 1.8 0 3.5-.4 5-.9l3 3 1.3-1.3L2.3 1.6zM12 7a3 3 0 0 1 3 3c0 .4-.1.8-.2 1.1L13 9.3V9a1 1 0 0 0-1-1h-.3L10.9 7.2c.3-.1.7-.2 1.1-.2Zm9.4 2.1C20.5 7.6 16.2 4 12 4c-1.1 0-2.1.2-3.1.5l1.6 1.6c.5-.1 1-.1 1.5-.1 5.1 0 9 4.2 9.9 5-.3.4-1.1 1.2-2.2 2.1l1.2 1.2c1.4-1.2 2.4-2.5 2.9-3.2-.2-.3-1.5-2-3.4-3.9Z" />
                 </svg>
               </button>
             </div>
@@ -69,17 +81,22 @@
 
           <!-- Confirm password -->
           <div>
-            <label for="passwordConfirm" class="block text-sm font-medium">Password confirmation <span class="text-red-500">*</span></label>
+            <label for="passwordConfirm" class="block text-sm font-medium">Password confirmation <span
+                class="text-red-500">*</span></label>
             <div class="pw-field relative mt-2">
-              <input id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Password confirmation" autocomplete="new-password"
-                     class="w-full pr-11 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
-              <button type="button" class="absolute inset-y-0 right-3 my-auto inline-flex h-6 w-6 items-center justify-center text-slate-400 hover:text-slate-600"
-                      aria-label="Show password" aria-pressed="false" data-role="toggle">
+              <input id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Password confirmation"
+                autocomplete="new-password"
+                class="w-full pr-11 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6A4BFF]">
+              <button type="button"
+                class="absolute inset-y-0 right-3 my-auto inline-flex h-6 w-6 items-center justify-center text-slate-400 hover:text-slate-600"
+                aria-label="Show password" aria-pressed="false" data-role="toggle">
                 <svg viewBox="0 0 24 24" class="h-6 w-6" data-eye>
-                  <path fill="currentColor" d="M12 5c-5.5 0-9.7 4.5-10.7 6 .9 1.5 5.2 6 10.7 6s9.8-4.5 10.7-6C21.8 9.5 17.5 5 12 5Zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                  <path fill="currentColor"
+                    d="M12 5c-5.5 0-9.7 4.5-10.7 6 .9 1.5 5.2 6 10.7 6s9.8-4.5 10.7-6C21.8 9.5 17.5 5 12 5Zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
                 </svg>
                 <svg viewBox="0 0 24 24" class="hidden h-6 w-6" data-eye-off>
-                  <path fill="currentColor" d="M2.3 1.6 1 2.9l4 4C2.8 8 1.5 9.7 1.3 10c.9 1.5 5.2 6 10.7 6 1.8 0 3.5-.4 5-.9l3 3 1.3-1.3L2.3 1.6zM12 7a3 3 0 0 1 3 3c0 .4-.1.8-.2 1.1L13 9.3V9a1 1 0 0 0-1-1h-.3L10.9 7.2c.3-.1.7-.2 1.1-.2Zm9.4 2.1C20.5 7.6 16.2 4 12 4c-1.1 0-2.1.2-3.1.5l1.6 1.6c.5-.1 1-.1 1.5-.1 5.1 0 9 4.2 9.9 5-.3.4-1.1 1.2-2.2 2.1l1.2 1.2c1.4-1.2 2.4-2.5 2.9-3.2-.2-.3-1.5-2-3.4-3.9Z"/>
+                  <path fill="currentColor"
+                    d="M2.3 1.6 1 2.9l4 4C2.8 8 1.5 9.7 1.3 10c.9 1.5 5.2 6 10.7 6 1.8 0 3.5-.4 5-.9l3 3 1.3-1.3L2.3 1.6zM12 7a3 3 0 0 1 3 3c0 .4-.1.8-.2 1.1L13 9.3V9a1 1 0 0 0-1-1h-.3L10.9 7.2c.3-.1.7-.2 1.1-.2Zm9.4 2.1C20.5 7.6 16.2 4 12 4c-1.1 0-2.1.2-3.1.5l1.6 1.6c.5-.1 1-.1 1.5-.1 5.1 0 9 4.2 9.9 5-.3.4-1.1 1.2-2.2 2.1l1.2 1.2c1.4-1.2 2.4-2.5 2.9-3.2-.2-.3-1.5-2-3.4-3.9Z" />
                 </svg>
               </button>
             </div>
@@ -118,4 +135,5 @@
     });
   </script>
 </body>
+
 </html>

@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  username     String   @unique @db.VarChar(20)
+  fullName     String?  @db.VarChar(32)
+  passwordHash String
+  // back-relations: no @relation() needed here
+  folders      Folder[]
+  files        File[]
+  sharedLinks ShareLink []
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id        String   @id @default(cuid()) @map("sid")
+  data      String   @db.Text
+  expiresAt DateTime
+  @@index([expiresAt])
+  @@map("Session")
+}
+model ShareLink {
+  id         String   @id @default(uuid())       // can serve as the public token
+  folderId   Int
+  folder     Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  createdBy  Int
+  owner      User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+
+  // lifecycle
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+
+  // optional controls
+  maxDownloads  Int?
+  downloadCount Int     @default(0)
+
+  @@index([folderId])
+  @@index([expiresAt])
+}
+model Folder {
+  id       Int      @id @default(autoincrement())
+  name     String
+  shared   Boolean  @default(false)
+
+  // owner (FK + relation)
+  userId   Int
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // self-relation for hierarchy
+  parentId Int?
+  parent   Folder?  @relation("FolderToChildren", fields: [parentId], references: [id], onDelete: Cascade)
+  children Folder[] @relation("FolderToChildren")
+  createdAt DateTime @default(now())
+  files    File[]
+  shareLinks ShareLink[]   // one folder can have multiple links
+
+
+  @@index([userId])
+  @@index([parentId])
+  // optional: unique folder name per parent per user
+  @@unique([userId, parentId, name])
+}
+
+
+
+model File {
+  id         Int      @id @default(autoincrement())
+  name       String
+  size       Int
+  mimeType   String?
+  url        String?   // or local path if you store on disk
+  uploadedAt DateTime  @default(now())
+
+  // placement & ownership
+  folderId  Int
+  userId    Int
+  folder    Folder  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([folderId])
+  @@index([userId])
+  // optional: avoid duplicate filenames within the same folder
+  @@unique([folderId, name])
+}
+
